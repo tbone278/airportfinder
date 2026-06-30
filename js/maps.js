@@ -1,3 +1,2 @@
-import {countryFlag,copyIATA} from './utils.js';import {openAppleMaps,openGoogleMaps} from './maps.js';
-export function renderMessage(msg){const c=document.querySelector('.airport-card');if(c)c.innerHTML='<p>'+msg+'</p>';}
-export function renderAirport(a){const c=document.querySelector('.airport-card');if(!c)return;if(!a){renderMessage('No airport found.');return;}c.innerHTML=`<h2>${countryFlag(a.country)} ${a.iata}</h2><p>${a.name}</p><p>ICAO: ${a.icao}</p><button id=x>Copy IATA</button> <button id=a>Apple Maps</button> <button id=g>Google Maps</button>`;x.onclick=()=>copyIATA(a.iata);document.getElementById('a').onclick=()=>openAppleMaps(a.lat,a.lon);document.getElementById('g').onclick=()=>openGoogleMaps(a.lat,a.lon);}
+export const openAppleMaps=(lat,lon)=>window.open(`https://maps.apple.com/?ll=${lat},${lon}`,'_blank');
+export const openGoogleMaps=(lat,lon)=>window.open(`https://www.google.com/maps?q=${lat},${lon}`,'_blank');

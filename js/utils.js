@@ -1,2 +1,2 @@
-export const openAppleMaps=(lat,lon)=>window.open(`https://maps.apple.com/?ll=${lat},${lon}`,'_blank');
-export const openGoogleMaps=(lat,lon)=>window.open(`https://www.google.com/maps?q=${lat},${lon}`,'_blank');
+export function countryFlag(cc){if(!cc)return'';return cc.toUpperCase().replace(/./g,c=>String.fromCodePoint(127397+c.charCodeAt()));}
+export function copyIATA(code){navigator.clipboard.writeText(code);}

@@ -1,3 +1,3 @@
-export async function loadAirports(){const r=await fetch('data/airports.json');return await r.json();}
-export function searchAirports(data,q){q=q.toUpperCase();const score=a=>a.iata===q?100:a.icao===q?95:(a.iata||'').startsWith(q)?90:(a.icao||'').startsWith(q)?85:(a.city||'').toUpperCase().startsWith(q)?75:(a.name||'').toUpperCase().startsWith(q)?70:((a.name||'')+(a.city||'')).toUpperCase().includes(q)?50:0;
-return data.map(a=>({...a,_s:score(a)})).filter(a=>a._s>0).sort((a,b)=>b._s-a._s);}
+import {countryFlag,copyIATA} from './utils.js';import {openAppleMaps,openGoogleMaps} from './maps.js';
+export function renderMessage(msg){const c=document.querySelector('.airport-card');if(c)c.innerHTML='<p>'+msg+'</p>';}
+export function renderAirport(a){const c=document.querySelector('.airport-card');if(!c)return;if(!a){renderMessage('No airport found.');return;}c.innerHTML=`<h2>${countryFlag(a.country)} ${a.iata}</h2><p>${a.name}</p><p>ICAO: ${a.icao}</p><button id=x>Copy IATA</button> <button id=a>Apple Maps</button> <button id=g>Google Maps</button>`;x.onclick=()=>copyIATA(a.iata);document.getElementById('a').onclick=()=>openAppleMaps(a.lat,a.lon);document.getElementById('g').onclick=()=>openGoogleMaps(a.lat,a.lon);}
