@@ -30,20 +30,19 @@ export function renderAirport(container, airport, more = []){
         <h2>${airport.name || 'Unknown Airport'}</h2>
         <p>${airport.city || 'Unknown city'}, ${airport.country || 'Unknown country'}</p>
       </div>
-      <div class="match-pill">MATCH ${airport._score || ''}</div>
     </div>
 
     <div class="airport-grid">
-      <div><span class="label">ICAO</span><span class="value">${airport.icao || '—'}</span></div>
-      <div><span class="label">Latitude</span><span class="value">${formatNumber(airport.lat)}</span></div>
       <div><span class="label">IATA</span><span class="value">${airport.iata || '—'}</span></div>
-      <div><span class="label">Longitude</span><span class="value">${formatNumber(airport.lon)}</span></div>
-      <div><span class="label">Timezone</span><span class="value">${airport.timezone || '—'}</span></div>
+      <div><span class="label">ICAO</span><span class="value">${airport.icao || '—'}</span></div>
+      <div><span class="label">Country</span><span class="value">${airport.country || '—'}</span></div>
       <div><span class="label">Local Time</span><span class="value">${time}</span></div>
+      <div><span class="label">Timezone</span><span class="value">${airport.timezone || '—'}</span></div>
       <div><span class="label">UTC</span><span class="value">${formatUtc(airport.utc)}</span></div>
       <div><span class="label">Type</span><span class="value">${airportType(airport)}</span></div>
+      <div><span class="label">Latitude</span><span class="value">${formatNumber(airport.lat)}</span></div>
+      <div><span class="label">Longitude</span><span class="value">${formatNumber(airport.lon)}</span></div>
       <div><span class="label">Elevation</span><span class="value">${formatElevation(airport.elevationFt)}</span></div>
-      <div><span class="label">Country</span><span class="value">${airport.country || '—'}</span></div>
     </div>
 
     <div class="airport-actions">
