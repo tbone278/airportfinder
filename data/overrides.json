@@ -1,0 +1,15 @@
+[
+  {
+    "iata": "WSI",
+    "icao": "YSWS",
+    "name": "Western Sydney International (Nancy-Bird Walton) Airport",
+    "city": "Sydney",
+    "country": "Australia",
+    "lat": -33.889,
+    "lon": 150.7167,
+    "timezone": "Australia/Sydney",
+    "utc": 10,
+    "dst": "O",
+    "source": "manual override"
+  }
+]
