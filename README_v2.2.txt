@@ -1,0 +1,1 @@
+Replace sw.js, add version.json, merge app_patch_snippet.js into app.js

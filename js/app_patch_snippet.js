@@ -1,0 +1,1 @@
+fetch('version.json?ts='+Date.now()).then(r=>r.json()).then(v=>{const e=document.querySelector('.footer-version');if(e)e.textContent='Release '+v.version;});

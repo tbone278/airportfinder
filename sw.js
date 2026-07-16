@@ -1,61 +1,11 @@
-const CACHE_NAME = "airportfinder-v202-hotfix";
-
-const APP_SHELL = [
-  "./",
-  "./index.html",
-  "./style.css",
-  "./manifest.json",
-  "./sw.js",
-  "./js/app.js",
-  "./js/search.js",
-  "./js/ui.js",
-  "./js/maps.js",
-  "./js/utils.js"
-];
-
-self.addEventListener("install", event => {
-  self.skipWaiting();
-  event.waitUntil(caches.open(CACHE_NAME).then(cache => cache.addAll(APP_SHELL)));
-});
-
-self.addEventListener("activate", event => {
-  event.waitUntil(
-    caches.keys()
-      .then(keys => Promise.all(keys.filter(key => key !== CACHE_NAME).map(key => caches.delete(key))))
-      .then(() => self.clients.claim())
-  );
-});
-
-self.addEventListener("fetch", event => {
-  if (event.request.method !== "GET") return;
-
-  const url = new URL(event.request.url);
-  const isDataFile = url.pathname.endsWith(".json");
-
-  if (isDataFile) {
-    event.respondWith(
-      fetch(event.request)
-        .then(response => {
-          const clone = response.clone();
-          caches.open(CACHE_NAME).then(cache => cache.put(event.request, clone));
-          return response;
-        })
-        .catch(() => caches.match(event.request))
-    );
-    return;
-  }
-
-  event.respondWith(
-    caches.match(event.request).then(cachedResponse => {
-      if (cachedResponse) return cachedResponse;
-
-      return fetch(event.request)
-        .then(networkResponse => {
-          const clone = networkResponse.clone();
-          caches.open(CACHE_NAME).then(cache => cache.put(event.request, clone));
-          return networkResponse;
-        })
-        .catch(() => caches.match("./index.html"));
-    })
-  );
+const CACHE_NAME='airportfinder-v220';
+const APP_SHELL=['./','./index.html','./style.css','./manifest.json','./version.json','./js/app.js','./js/search.js','./js/ui.js','./js/maps.js','./js/utils.js'];
+self.addEventListener('install',e=>{self.skipWaiting();e.waitUntil(caches.open(CACHE_NAME).then(c=>c.addAll(APP_SHELL)));});
+self.addEventListener('activate',e=>{e.waitUntil(caches.keys().then(k=>Promise.all(k.filter(x=>x!==CACHE_NAME).map(x=>caches.delete(x)))).then(()=>self.clients.claim()));});
+self.addEventListener('fetch',e=>{
+if(e.request.method!=='GET')return;
+const p=new URL(e.request.url).pathname;
+const nf=p.endsWith('/')||p.endsWith('.html')||p.endsWith('.css')||p.endsWith('.js')||p.endsWith('manifest.json')||p.endsWith('version.json');
+if(nf){e.respondWith(fetch(e.request).then(r=>{caches.open(CACHE_NAME).then(c=>c.put(e.request,r.clone()));return r;}).catch(()=>caches.match(e.request).then(r=>r||caches.match('./index.html'))));return;}
+e.respondWith(caches.match(e.request).then(r=>r||fetch(e.request).then(n=>{caches.open(CACHE_NAME).then(c=>c.put(e.request,n.clone()));return n;})));
 });
